@@ -29,7 +29,7 @@ public class MyStack<E> {
     public boolean push(E e) {
         if (!isFull()) {
             final Node<E> l = last;
-            last = new Node<>(null, e, l);
+            last = new Node<>(e, l);
             size++;
             return true;
         }
@@ -56,7 +56,7 @@ public class MyStack<E> {
         E item;
         Node<E> next;
 
-        Node(Node<E> prev, E element, Node<E> next) {
+        Node(E element, Node<E> next) {
             this.item = element;
             this.next = next;
         }
