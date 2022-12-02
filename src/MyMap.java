@@ -10,7 +10,7 @@ public class MyMap<K, V> {
     }
 
     public boolean isEmpty() {
-        return false;
+        return value == null;
     }
 
     public ArrayList<K> keys() {
@@ -31,15 +31,14 @@ public class MyMap<K, V> {
         value = new MapEntry<>(k, v, next);
     }
 
-    public boolean replace(K key, V newValue) {
+    public void replace(K key, V newValue) {
         for (MapEntry<K, V> x = value; x != null; x = x.next) {
             if (key.equals(x.key)) {
                 x.value = newValue;
-                return true;
+                return;
             }
         }
         System.out.println("key không đã tồn tại");
-        return false;
     }
 
     public void remove(K k) {
@@ -92,13 +91,6 @@ public class MyMap<K, V> {
             this.value = value;
         }
 
-        public final K getKey() {
-            return key;
-        }
-
-        public final V getValue() {
-            return value;
-        }
 
         public final String toString() {
             return "\"" + key + "\" : \"" + value + "\"";
@@ -108,7 +100,7 @@ public class MyMap<K, V> {
             if (o == this) return true;
             if (o instanceof MapEntry) {
                 MapEntry<?, ?> e = (MapEntry<?, ?>) o;
-                return Objects.equals(key, e.getKey()) && Objects.equals(value, e.getValue());
+                return Objects.equals(key, e.key) && Objects.equals(value, e.value);
             }
             return false;
         }
