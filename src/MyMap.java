@@ -6,11 +6,6 @@ public class MyMap<K, V> {
     int hasCode;
     transient MapEntry<K, V> value;
 
-    static int hash(Object key) {
-        int h;
-        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
-    }
-
     MyMap() {
     }
 
@@ -27,17 +22,16 @@ public class MyMap<K, V> {
         return keys;
     }
 
-    public void addEntries(MapEntry<K, V> entry) {
-        if(keys().contains(entry.key)) {
+    public void put(K k, V v) {
+        if(keys().contains(k)) {
             System.out.println("key đã tồn tại");
             return;
         }
-        final MapEntry<K, V> v = value;
-        int hash = hash(entry.getKey());
-        value = new MapEntry<>(hash, entry.key, entry.value, v);
+        final MapEntry<K, V> next = value;
+        value = new MapEntry<>(k, v, next);
     }
 
-    public boolean updateValueByKey(K key, V newValue) {
+    public boolean replace(K key, V newValue) {
         for (MapEntry<K, V> x = value; x != null; x = x.next) {
             if (key.equals(x.key)) {
                 x.value = newValue;
@@ -48,20 +42,18 @@ public class MyMap<K, V> {
         return false;
     }
 
-    public boolean remove(K k) {
-
+    public void remove(K k) {
         for (MapEntry<K, V> x = value; x != null; x = x.next) {
             final MapEntry<K, V> next = x.next;
             if (k.equals(x.key)) {
                 if (next != null) x.next = next.next;
-                return true;
+                return;
             }
             if(k.equals(next.key) && next.next == null) {
                 x.next = null;
-                return true;
+                return;
             }
         }
-        return false;
     }
 
     public V get(K k) throws Exception {
@@ -85,20 +77,17 @@ public class MyMap<K, V> {
     }
 
     static class MapEntry<K, V> {
-        final int hash;
         final K key;
         V value;
         MapEntry<K, V> next;
 
-        MapEntry(int hash, K key, V value, MapEntry<K, V> next) {
-            this.hash = hash;
+        MapEntry(K key, V value, MapEntry<K, V> next) {
             this.key = key;
             this.value = value;
             this.next = next;
         }
 
         public MapEntry(K key, V value) {
-            hash = 0;
             this.key = key;
             this.value = value;
         }

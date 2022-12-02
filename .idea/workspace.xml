@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36ad9c02-308c-4646-82b0-c621aceeaef7" name="Changes" comment="- create funtion">
+    <list default="true" id="36ad9c02-308c-4646-82b0-c621aceeaef7" name="Changes" comment="- finish map">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MyMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MyMap.java" afterDir="false" />
@@ -79,7 +79,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669889093883</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="- finish map">
+      <created>1669946720346</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669946720346</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -95,6 +102,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="- create funtion" />
-    <option name="LAST_COMMIT_MESSAGE" value="- create funtion" />
+    <MESSAGE value="- finish map" />
+    <option name="LAST_COMMIT_MESSAGE" value="- finish map" />
   </component>
 </project>
