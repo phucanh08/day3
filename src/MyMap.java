@@ -68,8 +68,8 @@ public class MyMap<K, V> {
     public String toString() {
         String s = "";
         for (MapEntry<K, V> x = value; x != null; x = x.next) {
-            if (s.isEmpty()) s = "\"" + x.key + "\" : \"" + x.value + "\"";
-            else s = String.join(", ", "\"" + x.key + "\" : \"" + x.value + "\"", s);
+            if (s.isEmpty()) s = x.toString();
+            else s = String.join(", ", x.toString(), s);
             if (x.next == null) break;
         }
         s = "{" + s + "}";
@@ -101,17 +101,7 @@ public class MyMap<K, V> {
         }
 
         public final String toString() {
-            return key + "=" + value;
-        }
-
-        public final int hashCode() {
-            return Objects.hashCode(key) ^ Objects.hashCode(value);
-        }
-
-        public final V setValue(V newValue) {
-            V oldValue = value;
-            value = newValue;
-            return oldValue;
+            return "\"" + key + "\" : \"" + value + "\"";
         }
 
         public final boolean equals(Object o) {
