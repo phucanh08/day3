@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MyMap<K, V> {
-
-    int hasCode;
     transient MapEntry<K, V> value;
 
     MyMap() {
@@ -23,7 +21,7 @@ public class MyMap<K, V> {
     }
 
     public void put(K k, V v) {
-        if(keys().contains(k)) {
+        if (keys().contains(k)) {
             System.out.println("key đã tồn tại");
             return;
         }
@@ -48,7 +46,7 @@ public class MyMap<K, V> {
                 if (next != null) x.next = next.next;
                 return;
             }
-            if(k.equals(next.key) && next.next == null) {
+            if (k.equals(next.key) && next.next == null) {
                 x.next = null;
                 return;
             }
