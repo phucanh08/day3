@@ -15,34 +15,10 @@ public class MyQueue<E> {
      */
     transient Node<E> first;
 
-    /**
-     * Con trỏ tới vị trí cuối cùng.
-     * Bất biến khi: (first == null && last == null) ||
-     * (last.next == null && last.item != null)
-     */
-    transient Node<E> last;
-
     public MyQueue(int initialCapacity) {
         this.maxSize = initialCapacity;
     }
 
-
-    /**
-     * Hủy liên kết phần tử đầu tiên first.
-     */
-    private E unlinkLast(Node<E> l) {
-        final E element = l.item;
-        final Node<E> prev = l.prev;
-        l.item = null;
-        l.prev = null; // help GC
-        last = prev;
-        if (prev == null)
-            first = null;
-        else
-            prev.next = null;
-        size--;
-        return element;
-    }
 
     public boolean isFull() {
         return size >= maxSize;
@@ -52,33 +28,36 @@ public class MyQueue<E> {
      * Enqueue.
      */
     public void add(E e) {
-        if(!isFull()) {
+        if (!isFull()) {
             final Node<E> f = first;
-            final Node<E> newNode = new Node<>(null, e, f);
-            first = newNode;
-            if (f == null) last = newNode;
-            else f.prev = newNode;
+            first = new Node<>(f, e);
             size++;
         }
     }
 
     public boolean offer(E e) {
-        if(!isFull()) {
+        if (!isFull()) {
             add(e);
             return true;
         }
         return false;
     }
 
-    public E remove() {
-        final Node<E> f = last;
-        if (f == null) throw new NoSuchElementException();
-        return unlinkLast(f);
+    public void remove() {
+        remove(first);
     }
 
-    public E poll() {
-        final Node<E> f = first;
-        return (f == null) ? null : unlinkLast(f);
+    private void remove(Node<E> e) {
+        Node<E> prev = e.prev;
+        if (prev == null) {
+            e.item = null;
+            return;
+        }
+        if (prev.prev == null) {
+            e.prev = null;
+            return;
+        }
+        remove(e.prev);
     }
 
     public E peek() {
@@ -86,14 +65,26 @@ public class MyQueue<E> {
         return (f == null) ? null : f.item;
     }
 
+    public String toString() {
+        String s = "";
+        for (Node<E> x = first; x != null; x = x.prev) {
+            if (s.isEmpty()) s = x.toString();
+            else s = String.join(", ", x.toString(), s);
+            if (x.prev == null) break;
+        }
+        s = "{" + s + "}";
+        return s;
+    }
+
     private static class Node<E> {
         E item;
-        Node<E> next;
         Node<E> prev;
+        public String toString() {
+            return item.toString();
+        }
 
-        Node(Node<E> prev, E element, Node<E> next) {
+        Node(Node<E> prev, E element) {
             this.item = element;
-            this.next = next;
             this.prev = prev;
         }
     }

@@ -23,7 +23,7 @@ public class MyStack<E> {
     }
 
     public boolean isEmpty() {
-        return last.next == null;
+        return last.prev == null;
     }
 
     public boolean push(E e) {
@@ -40,9 +40,9 @@ public class MyStack<E> {
         if (isEmpty()) {
             throw new EmptyStackException();
         }
-        final Node<E> next = last.next;
+        final Node<E> next = last.prev;
         last.item = null;
-        last.next = null; // help GC
+        last.prev = null; // help GC
         this.last = next;
         size--;
     }
@@ -54,11 +54,11 @@ public class MyStack<E> {
 
     private static class Node<E> {
         E item;
-        Node<E> next;
+        Node<E> prev;
 
         Node(E element, Node<E> next) {
             this.item = element;
-            this.next = next;
+            this.prev = next;
         }
     }
 }

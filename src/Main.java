@@ -6,15 +6,15 @@ public class Main {
         testQueue.add(10);
         testQueue.add(16);
         testQueue.add(9);
-        System.out.println("Hello, World!" + testQueue.peek());
+        System.out.println("Hello, World!" + testQueue);
         testQueue.remove();
-        System.out.println("Hello, World!" + testQueue.peek());
+        System.out.println("Hello, World!" + testQueue);
         testQueue.remove();
-        System.out.println("Hello, World!" + testQueue.peek());
+        System.out.println("Hello, World!" + testQueue);
         testQueue.remove();
-        System.out.println("Hello, World!" + testQueue.peek());
+        System.out.println("Hello, World!" + testQueue);
         testQueue.remove();
-        System.out.println("Hello, World!" + testQueue.peek());
+        System.out.println("Hello, World!" + testQueue);
 
 
         MyStack<Integer> stack = new MyStack<>(5);

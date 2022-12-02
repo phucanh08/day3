@@ -13,9 +13,9 @@ public class MyMap<K, V> {
 
     public ArrayList<K> keys() {
         ArrayList<K> keys = new ArrayList<>();
-        for (MapEntry<K, V> x = value; x != null; x = x.next) {
+        for (MapEntry<K, V> x = value; x != null; x = x.prev) {
             keys.add(x.key);
-            if (x.next == null) break;
+            if (x.prev == null) break;
         }
         return keys;
     }
@@ -30,7 +30,7 @@ public class MyMap<K, V> {
     }
 
     public void replace(K key, V newValue) {
-        for (MapEntry<K, V> x = value; x != null; x = x.next) {
+        for (MapEntry<K, V> x = value; x != null; x = x.prev) {
             if (key.equals(x.key)) {
                 x.value = newValue;
                 return;
@@ -40,21 +40,21 @@ public class MyMap<K, V> {
     }
 
     public void remove(K k) {
-        for (MapEntry<K, V> x = value; x != null; x = x.next) {
-            final MapEntry<K, V> next = x.next;
+        for (MapEntry<K, V> x = value; x != null; x = x.prev) {
+            final MapEntry<K, V> next = x.prev;
             if (k.equals(x.key)) {
-                if (next != null) x.next = next.next;
+                if (next != null) x.prev = next.prev;
                 return;
             }
-            if (k.equals(next.key) && next.next == null) {
-                x.next = null;
+            if (k.equals(next.key) && next.prev == null) {
+                x.prev = null;
                 return;
             }
         }
     }
 
     public V get(K k) throws Exception {
-        for (MapEntry<K, V> x = value; x != null; x = x.next) {
+        for (MapEntry<K, V> x = value; x != null; x = x.prev) {
             if (k.equals(x.key)) {
                 return x.value;
             }
@@ -64,10 +64,10 @@ public class MyMap<K, V> {
 
     public String toString() {
         String s = "";
-        for (MapEntry<K, V> x = value; x != null; x = x.next) {
+        for (MapEntry<K, V> x = value; x != null; x = x.prev) {
             if (s.isEmpty()) s = x.toString();
             else s = String.join(", ", x.toString(), s);
-            if (x.next == null) break;
+            if (x.prev == null) break;
         }
         s = "{" + s + "}";
         return s;
@@ -76,12 +76,12 @@ public class MyMap<K, V> {
     static class MapEntry<K, V> {
         final K key;
         V value;
-        MapEntry<K, V> next;
+        MapEntry<K, V> prev;
 
         MapEntry(K key, V value, MapEntry<K, V> next) {
             this.key = key;
             this.value = value;
-            this.next = next;
+            this.prev = next;
         }
 
         public MapEntry(K key, V value) {
