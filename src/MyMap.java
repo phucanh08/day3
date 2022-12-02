@@ -41,12 +41,12 @@ public class MyMap<K, V> {
 
     public void remove(K k) {
         for (MapEntry<K, V> x = value; x != null; x = x.prev) {
-            final MapEntry<K, V> next = x.prev;
+            final MapEntry<K, V> prev = x.prev;
             if (k.equals(x.key)) {
-                if (next != null) x.prev = next.prev;
+                value = null;
                 return;
             }
-            if (k.equals(next.key) && next.prev == null) {
+            if (k.equals(prev.key) && prev.prev == null) {
                 x.prev = null;
                 return;
             }

@@ -77,7 +77,7 @@ public class MyQueue<E> {
         E item;
         Node<E> prev;
         public String toString() {
-            return item.toString();
+            return item + "";
         }
 
         Node(Node<E> prev, E element) {
