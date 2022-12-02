@@ -1,3 +1,5 @@
+import java.util.Map;
+
 public class Main {
 
     public static void main(String[] args){
@@ -30,7 +32,21 @@ public class Main {
         stack.pop();
        System.out.println("Hello, World!" + stack.peek());
 
+        MyMap<String, Integer> b = new MyMap<>();
+        b.addEntries(new MyMap.MapEntry<>("hello", 1));
+        b.addEntries(new MyMap.MapEntry<>("hello", 5));
+        System.out.println(b);
+        b.addEntries(new MyMap.MapEntry<>("hi", 32));
+        System.out.println(b);
 
+        b.addEntries(new MyMap.MapEntry<>("I", 4));
+        System.out.println(b);
 
+        b.addEntries(new MyMap.MapEntry<>("h", 6));
+        System.out.println(b);
+        b.remove("hello");
+        System.out.println(b);
+        b.remove("h");
+        System.out.println(b);
     }
 }
