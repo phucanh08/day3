@@ -12,7 +12,7 @@ public class MyStack<E> {
      * Bất biến khi: (first == null && last == null) ||
      * (last.next == null && last.item != null)
      */
-    transient Node<E> last;
+    transient Node<E> value;
 
     public MyStack(int initialCapacity) {
         this.maxSize = initialCapacity;
@@ -23,13 +23,13 @@ public class MyStack<E> {
     }
 
     public boolean isEmpty() {
-        return last.prev == null;
+        return value.prev == null;
     }
 
     public boolean push(E e) {
         if (!isFull()) {
-            final Node<E> l = last;
-            last = new Node<>(e, l);
+            final Node<E> l = value;
+            value = new Node<>(e, l);
             size++;
             return true;
         }
@@ -40,15 +40,23 @@ public class MyStack<E> {
         if (isEmpty()) {
             throw new EmptyStackException();
         }
-        final Node<E> next = last.prev;
-        last.item = null;
-        last.prev = null; // help GC
-        this.last = next;
+        final Node<E> next = value.prev;
+        value.item = null;
+        value.prev = null; // help GC
+        this.value = next;
         size--;
     }
 
+    public void popAll() {
+        if(isEmpty()) {
+            return;
+        }
+        pop();
+        popAll();
+    }
+
     public E peek() {
-        final Node<E> f = last;
+        final Node<E> f = value;
         return (f == null) ? null : f.item;
     }
 

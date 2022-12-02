@@ -1,6 +1,3 @@
-
-import java.util.NoSuchElementException;
-
 public class MyQueue<E> {
     private final transient int maxSize;
     /**
@@ -13,7 +10,7 @@ public class MyQueue<E> {
      * Bất biến khi: (first == null && last == null) ||
      * (first.prev == null && first.item != null)
      */
-    transient Node<E> first;
+    transient Node<E> value;
 
     public MyQueue(int initialCapacity) {
         this.maxSize = initialCapacity;
@@ -29,8 +26,8 @@ public class MyQueue<E> {
      */
     public void add(E e) {
         if (!isFull()) {
-            final Node<E> f = first;
-            first = new Node<>(f, e);
+            final Node<E> f = value;
+            value = new Node<>(f, e);
             size++;
         }
     }
@@ -44,7 +41,7 @@ public class MyQueue<E> {
     }
 
     public void remove() {
-        remove(first);
+        remove(value);
     }
 
     private void remove(Node<E> e) {
@@ -61,13 +58,13 @@ public class MyQueue<E> {
     }
 
     public E peek() {
-        final Node<E> f = first;
+        final Node<E> f = value;
         return (f == null) ? null : f.item;
     }
 
     public String toString() {
         String s = "";
-        for (Node<E> x = first; x != null; x = x.prev) {
+        for (Node<E> x = value; x != null; x = x.prev) {
             if (s.isEmpty()) s = x.toString();
             else s = String.join(", ", x.toString(), s);
             if (x.prev == null) break;
