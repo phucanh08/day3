@@ -135,20 +135,20 @@ class Search<E> {
     public E fibonacciSearch(Function<E, Boolean> conditionMore, Function<E, Boolean> conditionLess, int m_2, int m_1, int start, int end) {
         int m = (end < m_1 + start) ? end : (m_1 + m_2);
 
-        boolean next = (!conditionMore.apply(list.get(m_1 + start)) && !conditionMore.apply(list.get(m_2 + start)))
+        boolean isNext = (!conditionMore.apply(list.get(m_1 + start)) && !conditionMore.apply(list.get(m_2 + start)))
                 && (conditionLess.apply(list.get(m_1 + start)) && conditionLess.apply(list.get(m_2 + start)));
-        boolean prev = (conditionMore.apply(list.get(m_1 + start)) && conditionMore.apply(list.get(m_2 + start)))
+        boolean isPrev = (conditionMore.apply(list.get(m_1 + start)) && conditionMore.apply(list.get(m_2 + start)))
                 && (!conditionLess.apply(list.get(m_1 + start)) && !conditionLess.apply(list.get(m_2 + start)));
-        boolean center = conditionMore.apply(list.get(m_2 + start)) && conditionMore.apply(list.get(m_1 + start));
+        boolean isCenter = conditionMore.apply(list.get(m_2 + start)) && conditionMore.apply(list.get(m_1 + start));
         if (conditionMore.apply(list.get(m_1 + start)) && conditionMore.apply(list.get(m_1 + start))) {
             return list.get(m_1 + start);
         }
         if (conditionMore.apply(list.get(m_2 + start)) && conditionMore.apply(list.get(m_2 + start))) {
             return list.get(m_2 + start);
         }
-        if (next) return fibonacciSearch(conditionMore, conditionLess, m_1, m, m_1 + start, end);
-        if (prev) return fibonacciSearch(conditionMore, conditionLess, 0, 1, start, start + m_2);
-        if (center) return fibonacciSearch(conditionMore, conditionLess, 0, 1, start + m_2, start + m_1);
+        if (isNext) return fibonacciSearch(conditionMore, conditionLess, m_1, m, m_1 + start, end);
+        if (isPrev) return fibonacciSearch(conditionMore, conditionLess, 0, 1, start, start + m_2);
+        if (isCenter) return fibonacciSearch(conditionMore, conditionLess, 0, 1, start + m_2, start + m_1);
         return null;
     }
 }
