@@ -1,21 +1,17 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
 
-    public static void main(String[] args){
-        MyArrayList<Integer> arrayList = new MyArrayList<>();
-        arrayList.add(5);
-        arrayList.add(1);
-        arrayList.add(6);
-        arrayList.add(7);
-        arrayList.add(9);
-        arrayList.add(4);
+    public static void main(String[] args) {
+        MyArrayList<Integer> arrayList = new MyArrayList<>(Arrays.asList(5, 1, 6, 7, 9, 4));
+
         System.out.println(arrayList);
-        arrayList.bubbleSort((a,b) -> a > b);
+        arrayList.quickSort((a, b) -> a < b);
         System.out.println(arrayList);
 
         System.out.println(arrayList.binarySearch((a) -> a == 5, (b) -> b > 5));
-        arrayList.selectedSort((a,b) -> a < b);
+        arrayList.selectedSort((a, b) -> a < b);
         System.out.println(arrayList);
     }
 }
