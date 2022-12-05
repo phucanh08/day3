@@ -8,11 +8,13 @@ public class Main {
         arrayList.add(1);
         arrayList.add(6);
         arrayList.add(7);
-        arrayList.add(8);
         arrayList.add(9);
+        arrayList.add(4);
         System.out.println(arrayList);
-        arrayList.bubbleSort((a,b) -> a > b);
-        System.out.println(arrayList);
+//        arrayList.bubbleSort((a,b) -> a > b);
+//        System.out.println(arrayList);
+////        arrayList.selectedSort((a,b) -> a > b);
+////        System.out.println(arrayList);
         arrayList.selectedSort((a,b) -> a < b);
         System.out.println(arrayList);
     }

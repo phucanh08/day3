@@ -64,13 +64,15 @@ public class MyArrayList<E> {
     }
 
     public <A, B> void selectedSort(MyFunction<E, Boolean> function, int l, int r) {
-        if (r < list.size()) {
-            for (int i = l; i < r; i++) {
-                if (function.apply(list.get(i), list.get(r + 1))) {
-                    E e = list.get(r + 1);
-                    list.remove(r + 1);
-                    list.add(r, e);
-                    selectedSort(function, l, r + 1);
+        for (int j = r + 1; j < list.size(); j++) {
+            for (int i = l; i <= r; i++) {
+                if (function.apply(list.get(i), list.get(j))) {
+                    E e = list.get(j);
+                    list.remove(j);
+                    list.add(i, e);
+                    return;
+                } else {
+                    selectedSort(function, l, j);
                 }
             }
         }
