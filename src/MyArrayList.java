@@ -25,6 +25,10 @@ public class MyArrayList<E> extends ArrayList<E> {
         return _search.binarySearch(0, this.size() - 1, condition, isGreaterThanCondition);
     }
 
+    public E fibonacciSearch(Function<E, Boolean> conditionMore, Function<E, Boolean> conditionLess) {
+        return _search.fibonacciSearch(conditionMore, conditionLess, 0, 1, 0, this.size() - 1);
+    }
+
     public <A, B> void selectedSort(MyFunction<E, Boolean> condition) {
         _sort.selectedSort(condition, 0, 0);
     }
@@ -36,6 +40,7 @@ public class MyArrayList<E> extends ArrayList<E> {
     public void quickSort(MyFunction<E, Boolean> condition) {
         _sort.quickSort(condition, 0, this.size() - 1);
     }
+
     public void heapSort(MyFunction<E, Boolean> condition) {
         _sort.heapSort(condition);
     }
@@ -124,6 +129,26 @@ class Search<E> {
 
             return binarySearch(firstIndex, lastIndex, condition, isGreaterThanCondition);
         }
+        return null;
+    }
+
+    public E fibonacciSearch(Function<E, Boolean> conditionMore, Function<E, Boolean> conditionLess, int m_2, int m_1, int start, int end) {
+        int m = (end < m_1 + start) ? end : (m_1 + m_2);
+
+        boolean next = (!conditionMore.apply(list.get(m_1 + start)) && !conditionMore.apply(list.get(m_2 + start)))
+                && (conditionLess.apply(list.get(m_1 + start)) && conditionLess.apply(list.get(m_2 + start)));
+        boolean prev = (conditionMore.apply(list.get(m_1 + start)) && conditionMore.apply(list.get(m_2 + start)))
+                && (!conditionLess.apply(list.get(m_1 + start)) && !conditionLess.apply(list.get(m_2 + start)));
+        boolean center = conditionMore.apply(list.get(m_2 + start)) && conditionMore.apply(list.get(m_1 + start));
+        if (conditionMore.apply(list.get(m_1 + start)) && conditionMore.apply(list.get(m_1 + start))) {
+            return list.get(m_1 + start);
+        }
+        if (conditionMore.apply(list.get(m_2 + start)) && conditionMore.apply(list.get(m_2 + start))) {
+            return list.get(m_2 + start);
+        }
+        if (next) return fibonacciSearch(conditionMore, conditionLess, m_1, m, m_1 + start, end);
+        if (prev) return fibonacciSearch(conditionMore, conditionLess, 0, 1, start, start + m_2);
+        if (center) return fibonacciSearch(conditionMore, conditionLess, 0, 1, start + m_2, start + m_1);
         return null;
     }
 }

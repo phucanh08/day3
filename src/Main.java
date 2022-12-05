@@ -11,7 +11,10 @@ public class Main {
         System.out.println(arrayList);
 
         System.out.println(arrayList.binarySearch((a) -> a == 5, (b) -> b > 5));
+        System.out.println(arrayList.fibonacciSearch((a) -> a > 6, (b) -> b < 9));
         arrayList.selectedSort((a, b) -> a < b);
         System.out.println(arrayList);
+        System.out.println(arrayList.fibonacciSearch((a) -> a > 6, (b) -> b < 9));
+
     }
 }
