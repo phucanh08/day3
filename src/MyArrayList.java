@@ -33,7 +33,7 @@ public class MyArrayList<E> {
      * Fun2 kiểm  phần tử đó có lớn hơn phần tử đang tìm không
      */
     public E binarySearch(Function<E, Boolean> fun1, Function<E, Boolean> fun2) {
-        return binarySearch(0, list.size(), fun1, fun2);
+        return binarySearch(0, list.size() - 1, fun1, fun2);
     }
 
     public E binarySearch(int firstIndex, int lastIndex, Function<E, Boolean> fun1, Function<E, Boolean> fun2) {

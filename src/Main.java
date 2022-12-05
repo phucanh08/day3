@@ -11,10 +11,10 @@ public class Main {
         arrayList.add(9);
         arrayList.add(4);
         System.out.println(arrayList);
-//        arrayList.bubbleSort((a,b) -> a > b);
-//        System.out.println(arrayList);
-////        arrayList.selectedSort((a,b) -> a > b);
-////        System.out.println(arrayList);
+        arrayList.bubbleSort((a,b) -> a > b);
+        System.out.println(arrayList);
+
+        System.out.println(arrayList.binarySearch((a) -> a == 5, (b) -> b > 5));
         arrayList.selectedSort((a,b) -> a < b);
         System.out.println(arrayList);
     }
