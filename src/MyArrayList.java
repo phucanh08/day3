@@ -239,3 +239,19 @@ interface MyFunction<E, R> {
      */
     R apply(E a, E b);
 }
+
+
+
+interface Animal {
+    void eat();
+}
+
+interface UnderwaterAnimal extends Animal {
+    void swim();
+}
+
+interface TerrestrialAnimal extends Animal {
+    void swim();
+    void run();
+    void fly();
+}

@@ -1,18 +1,20 @@
 import java.util.EmptyStackException;
 
-public class MyStack<E> {
+public class MyStack<E> extends Node<E> {
     private final transient int maxSize;
     /**
      * Độ dài của List giá trị mặc định là 0.
      */
     private transient int size = 0;
 
-    /**
-     * Con trỏ tới vị trí cuối cùng.
-     * Bất biến khi: (first == null && last == null) ||
-     * (last.next == null && last.item != null)
-     */
-    transient Node<E> value;
+    private MyStack(E item, Node<E> prev, int maxSize) {
+        super(item,prev);
+        this.maxSize = maxSize;
+    }
+
+    private Node<E> newNode() {
+        return new MyStack<>(super.item, super.prev, this.maxSize);
+    }
 
     public MyStack(int initialCapacity) {
         this.maxSize = initialCapacity;
@@ -23,13 +25,14 @@ public class MyStack<E> {
     }
 
     public boolean isEmpty() {
-        return value.prev == null;
+        return this.prev == null;
     }
 
     public boolean push(E e) {
         if (!isFull()) {
-            final Node<E> l = value;
-            value = new Node<>(e, l);
+            final Node<E> l = newNode();
+            this.item = e;
+            this.prev = l;
             size++;
             return true;
         }
@@ -40,15 +43,14 @@ public class MyStack<E> {
         if (isEmpty()) {
             throw new EmptyStackException();
         }
-        final Node<E> next = value.prev;
-        value.item = null;
-        value.prev = null; // help GC
-        this.value = next;
+        final Node<E> prev = this.prev;
+        this.item = prev.item;
+        this.prev = prev.prev;
         size--;
     }
 
     public void popAll() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return;
         }
         pop();
@@ -56,17 +58,29 @@ public class MyStack<E> {
     }
 
     public E peek() {
-        final Node<E> f = value;
-        return (f == null) ? null : f.item;
+        return (this.item == null) ? null : this.item;
     }
 
-    private static class Node<E> {
-        E item;
-        Node<E> prev;
-
-        Node(E element, Node<E> next) {
-            this.item = element;
-            this.prev = next;
+    public String toString() {
+        String s = "";
+        for (Node<E> e = this; e.prev != null; e = e.prev) {
+            if (s.isEmpty()) s = e.item.toString();
+            else s = String.join(", ", e.item.toString(), s);
+            if (e.prev == null) break;
         }
+        return s;
+    }
+}
+
+abstract class Node<E> {
+    E item;
+    Node<E> prev;
+
+    Node(E element, Node<E> next) {
+        this.item = element;
+        this.prev = next;
+    }
+
+    public Node() {
     }
 }

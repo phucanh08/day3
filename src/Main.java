@@ -16,5 +16,17 @@ public class Main {
         System.out.println(arrayList);
         System.out.println(arrayList.fibonacciSearch((a) -> a > 6, (b) -> b < 9));
 
+
+        MyStack<Integer> stack = new MyStack<>(10);
+        stack.push(5);
+        stack.push(10);
+        stack.push(15);
+        stack.push(20);
+        System.out.println(stack);
+        stack.pop();
+        System.out.println(stack);
+        stack.pop();
+        System.out.println(stack);
+
     }
 }
